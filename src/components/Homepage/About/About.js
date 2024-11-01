@@ -16,9 +16,9 @@ const About = () => {
                             <br /> & of experience 
                             <br />in this field</h1>
                         <div className="">
-                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. </p>
+                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don not look even slightly believable. </p>
                             <br />
-                            <p>the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. </p>
+                            <p>The majority have suffered alteration in some form, by injected humour, or randomised words which don not look even slightly believable. </p>
                         </div>
                         <button className="btn btn-primary btn-outline">Get More Info</button>
                     </div>
