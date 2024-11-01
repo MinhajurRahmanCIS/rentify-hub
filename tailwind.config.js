@@ -13,5 +13,26 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  daisyui: {
+    themes: [
+      {
+        rentifyHubTheme: {
+          ...require("daisyui/src/theming/themes")["cupcake"],
+          "primary": "#fc7825",
+          
+          ".btn-primary": {
+            "color": "#fff"
+          },
+
+          ".btn-outline.btn-primary:hover": {
+            "color": "#fff"
+          }
+        },
+      },
+      "cupcake",
+    ],
+  },
+  plugins: [
+    require('daisyui'),
+  ],
 };
