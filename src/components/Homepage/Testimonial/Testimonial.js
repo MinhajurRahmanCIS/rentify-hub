@@ -14,7 +14,7 @@ const Testimonial = () => {
                     <div className="flex items-center gap-5">
                         <div className="avatar">
                             <div className="w-20 rounded-full">
-                                <Image src="https://images.unsplash.com/photo-1560250097-0b93528c311a?fm=jpg" alt="" width={20} height={20} />
+                                <Image src="https://images.unsplash.com/photo-1560250097-0b93528c311a?fm=jpg" alt="" width={1000} height={1000} />
                             </div>
                         </div>
                         <div className="space-y-1">
