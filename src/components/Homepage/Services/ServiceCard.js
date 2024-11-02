@@ -9,7 +9,7 @@ const ServiceCard = ({service}) => {
                 <Image
                     src={img}
                     alt="Shoes"
-                    className="rounded-xl w-full h-[350px] " height={300} width={300} />
+                    className="rounded-t-xl w-full h-[350px] " height={300} width={300} />
             </figure>
             <div className="card-body">
                 <h2 className="card-title">{title}</h2>
