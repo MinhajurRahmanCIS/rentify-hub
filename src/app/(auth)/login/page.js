@@ -2,16 +2,32 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { signIn } from 'next-auth/react';
 import { FaFacebook } from 'react-icons/fa';
 import { FcGoogle } from "react-icons/fc";
 import { TiSocialLinkedin } from 'react-icons/ti';
+import toast from 'react-hot-toast';
+import { redirect } from 'next/navigation';
 
 const page = () => {
-    const handelLogin = async () => {
-
+    const handelLogin = async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        const res = await signIn('credentials', {
+            email,
+            password,
+            redirect: false
+        });
+        if (res?.status === 200) {
+            form.reset();
+            toast.success("Login Successfully");
+            redirect('/');
+        };
     };
     return (
-        <div className="hero min-h-screen">
+        <div className="hero min-h-screen my-10">
             <div className="grid grid-cols-1 md:grid-cols-2 md:grid- gap-10 justify-items-center items-center">
                 <div className="w-full hidden md:block">
                     <Image className="w-full" src="/assets/images/login/login.png" alt="" width={500} height={500} />
@@ -62,7 +78,7 @@ const page = () => {
                         </button>
                     </div>
 
-                    <p className="text-center my-5">Have an account? <Link href="/signup" className="text-primary font-bold">Sign In</Link></p>
+                    <p className="text-center my-5">Have an account? <Link href="/signup" className="text-primary font-bold">Sign Up</Link></p>
                 </div>
             </div>
         </div>

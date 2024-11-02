@@ -1,9 +1,19 @@
+"use client"
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { AiOutlineSearch, AiOutlineShoppingCart } from "react-icons/ai";
 
 const Navbar = () => {
+    const session = useSession();
+    console.log(session)
+    const handelLogout = () => {
+        signOut();
+        toast.success("Logout Successfully")
+    }
+
     const menuItems = [
         {
             title: "Home",
@@ -71,9 +81,16 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end gap-4">
-                    <AiOutlineShoppingCart className="text-2xl hover:text-primary"/>
-                    <AiOutlineSearch  className="text-2xl hover:text-primary"/>
+                    <AiOutlineShoppingCart className="text-2xl hover:text-primary" />
+                    <AiOutlineSearch className="text-2xl hover:text-primary" />
                     <a className="btn btn-primary btn-outline px-8">Appointment</a>
+
+                    {
+                        session?.data?.user ?
+                            <button onClick={handelLogout} className="btn btn-error text-white">Logout</button>
+                            :
+                            <Link href="/login" className="btn btn-primary">Login</Link>
+                    }
                 </div>
             </div>
         </div>
