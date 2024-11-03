@@ -2,6 +2,9 @@ import { connectDB } from "@/lib/connectDB";
 import NextAuth from "next-auth"
 import CredentialProvider from "next-auth/providers/credentials"
 import bcrypt from "bcrypt";
+import GoogleProvider from "next-auth/providers/google";
+import GitHubProvider from "next-auth/providers/github";
+import FacebookProvider from "next-auth/providers/facebook";
 
 const handler = NextAuth({
     secret: process.env.NEXT_PUBLIC_AUTH_SECRET,
@@ -9,6 +12,7 @@ const handler = NextAuth({
         strategy: "jwt",
         maxAge: 3600 * 23 * 60 * 60
     },
+
     providers: [
         CredentialProvider({
             credentials: {
@@ -38,8 +42,24 @@ const handler = NextAuth({
 
                 return currentUser;
             }
+        }),
+
+        GoogleProvider({
+            clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+            clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET
+        }),
+
+        FacebookProvider({
+            clientId: process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID,
+            clientSecret: process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_SECRET
+        }),
+
+        GitHubProvider({
+            clientId: process.env.NEXT_PUBLIC_GITHUB_ID,
+            clientSecret: process.env.NEXT_PUBLIC_GITHUB_SECRET
         })
     ],
+
     callbacks: {
         async jwt({ token, account, user }) {
             // Persist the OAuth access_token and or the user id to the token right after signin
@@ -49,12 +69,37 @@ const handler = NextAuth({
 
             return token;
         },
-        
+
         async session({ session, token }) {
             session.user.type = token.type
 
             return session;
-        }
+        },
+
+        async signIn({ user, account, profile, email, credentials }) {
+            if (account.provider === 'google' || 'github' || 'facebook') {
+                const { name, email, image } = user;
+                user.type = "";
+                try {
+                    const db = await connectDB();
+                    const userCollection = await db.collection('users');
+                    const userExist = await userCollection.findOne({ email });
+                    if (!userExist) {
+                        const res = await userCollection.insertOne(user);
+                        return user;
+                    }
+                    else {
+                        return user;
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            else {
+                return user;
+            }
+        },
+
     },
     pages: {
         signIn: '/login'

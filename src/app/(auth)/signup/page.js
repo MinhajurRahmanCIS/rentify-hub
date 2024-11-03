@@ -1,11 +1,9 @@
 "use client"
+import SocialSignIn from '@/components/Shared/SocialSignIn/SocialSignIn';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import { FaFacebook } from 'react-icons/fa';
-import { FcGoogle } from 'react-icons/fc';
-import { TiSocialLinkedin } from 'react-icons/ti';
 
 const page = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -160,7 +158,7 @@ const page = () => {
 
                         <div className="form-control">
                             <label className="label cursor-pointer ">
-                                <span className="label-text flex items-center gap-2"><input onClick={handelTerms} type="checkbox" className="checkbox checkbox-primary" /> Do you Agree for Sign Up</span>
+                                <span className="label-text flex items-center gap-2"><input onClick={handelTerms} type="checkbox" className="checkbox checkbox-primary" />I have read and agree to these terms</span>
                             </label>
                         </div>
 
@@ -170,17 +168,8 @@ const page = () => {
 
                         <p className="text-center mt-3">Or Sign Up with</p>
                     </form>
-                    <div className="flex justify-center items-center gap-5 my-2">
-                        <button className="btn btn-circle text-4xl">
-                            <FcGoogle />
-                        </button>
-                        <button className="btn btn-circle text-4xl">
-                            <TiSocialLinkedin className="text-[#0A66C2]" />
-                        </button>
-                        <button className="btn btn-circle text-4xl">
-                            <FaFacebook className="text-[#1877F2]" />
-                        </button>
-                    </div>
+
+                    <SocialSignIn />
 
                     <p className="text-center my-5">Have not an account? <Link href="/login" className="text-primary font-bold">Sign In</Link></p>
                 </div>

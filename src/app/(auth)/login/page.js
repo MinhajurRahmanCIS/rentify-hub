@@ -3,11 +3,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { signIn } from 'next-auth/react';
-import { FaFacebook } from 'react-icons/fa';
-import { FcGoogle } from "react-icons/fc";
-import { TiSocialLinkedin } from 'react-icons/ti';
 import toast from 'react-hot-toast';
 import { redirect } from 'next/navigation';
+import SocialSignIn from '@/components/Shared/SocialSignIn/SocialSignIn';
 
 const page = () => {
     const handelLogin = async (e) => {
@@ -66,17 +64,8 @@ const page = () => {
 
                         <p className="text-center mt-3">Or Sign In with</p>
                     </form>
-                    <div className="flex justify-center items-center gap-5 my-2">
-                        <button className="btn btn-circle text-4xl">
-                            <FcGoogle />
-                        </button>
-                        <button className="btn btn-circle text-4xl">
-                            <TiSocialLinkedin className="text-[#0A66C2]" />
-                        </button>
-                        <button className="btn btn-circle text-4xl">
-                            <FaFacebook className="text-[#1877F2]" />
-                        </button>
-                    </div>
+
+                    <SocialSignIn />
 
                     <p className="text-center my-5">Have an account? <Link href="/signup" className="text-primary font-bold">Sign Up</Link></p>
                 </div>

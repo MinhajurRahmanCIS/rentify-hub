@@ -8,7 +8,6 @@ import { AiOutlineSearch, AiOutlineShoppingCart } from "react-icons/ai";
 
 const Navbar = () => {
     const session = useSession();
-    console.log(session)
     const handelLogout = () => {
         signOut();
         toast.success("Logout Successfully")
@@ -86,14 +85,49 @@ const Navbar = () => {
                     <a className="btn btn-primary btn-outline px-8">Appointment</a>
 
                     {
-                        session?.data?.user ?
-                            <button onClick={handelLogout} className="btn btn-error text-white">Logout</button>
-                            :
-                            <Link href="/login" className="btn btn-primary">Login</Link>
+                        session?.status === "unauthenticated" &&
+                        <Link href="/login" className="btn btn-primary">Login</Link>
+                    }
+
+                    {
+                        session?.status === "loading" &&
+                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar animate-pulse">
+                            <div className="w-12 h-12 rounded-full bg-gray-500">
+                            </div>
+                        </div>
+                    }
+
+                    {
+                        session?.status === "authenticated" &&
+                        <div className="dropdown dropdown-end">
+                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                <div className="w-12 rounded-full">
+                                    <Image
+                                        alt="profile"
+                                        src={session?.data?.user?.image ? session?.data?.user?.image : "https://static.thenounproject.com/png/55393-200.png"}
+                                        width={1000}
+                                        height={1000}
+                                    />
+
+                                </div>
+                            </div>
+                            <ul
+                                tabIndex={0}
+                                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow gap-0.5">
+                                <li>
+                                    <a className="justify-between">
+                                        Profile
+                                    </a>
+                                </li>
+                                <li>
+                                    <button onClick={handelLogout} className="btn btn-error btn-sm text-white">Logout</button>
+                                </li>
+                            </ul>
+                        </div>
                     }
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 
