@@ -7,7 +7,7 @@ const Services = async () => {
     return (
         <div className="my-20">
             <div className="text-center space-y-4">
-                <h4 className="text-primary font-bold text-xl">Service</h4>
+                <h4 className="text-primary font-bold text-xl"><span className="text-3xl text-orange-600">Rent</span> Service</h4>
                 <h1 className="text-4xl font-bold">Our Service Area</h1>
                 <p>The majority have suffered alteration in some form, by injected humour, or randomized <br />words which don not look even slightly believable.</p>
             </div>
