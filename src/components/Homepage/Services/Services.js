@@ -1,6 +1,7 @@
 import React from 'react';
 import ServiceCard from './ServiceCard';
 import { getServices } from '@/services/getServices';
+import Link from 'next/link';
 
 const Services = async () => {
     const services = await getServices();
@@ -23,7 +24,7 @@ const Services = async () => {
             </div>
 
             <div className="flex justify-center items-center my-8">
-                <button className="btn btn-primary btn-outline">More Services</button>
+                <Link href="/services" className="btn btn-primary btn-outline">More Services</Link>
             </div>
         </div>
     );

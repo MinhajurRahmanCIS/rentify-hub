@@ -12,13 +12,23 @@ const ServiceDetails = ({ details }) => {
     const { _id, title, img, description, brand, category, configuration, condition, facility, price } = details || {};
 
     const handelTotalPrice = (e) => {
-        setTotal(e.target.value * parseFloat(price) * 1);
+        setTotal(e.target.value * parseFloat(price));
         setStatus(false);
     };
 
+    const handelIncrement = () => {
+        const currentQuantity = quantity + 1;
+        setQuantity(currentQuantity);
+    }
+
+    const handelDecrement = () => {
+        const currentQuantity = quantity - 1;
+        setQuantity(currentQuantity);
+    }
+
     return (
-        <div class="grid grid-cols-1 md:grid-cols-3 my-20">
-            <div class="col-span-2 mx-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 my-20">
+            <div className="col-span-2 mx-2">
 
                 <Image className="w-full h-[450px] rounded-xl shadow-xl" src={img} alt="" width={1000} height={300} />
 
@@ -41,7 +51,7 @@ const ServiceDetails = ({ details }) => {
 
 
             </div>
-            <div class="col-span-1 mx-2">
+            <div className="col-span-1 mx-2">
                 <ul className="menu menu-md bg-base-200 rounded-box">
                     <h1 className="text-2xl font-bold px-5 my-2">Specification</h1>
                     <li ><a><strong>Brand :</strong> {brand}</a></li>
@@ -71,12 +81,14 @@ const ServiceDetails = ({ details }) => {
                 </div>
 
                 <div className="flex justify-end items-center gap-5">
-                    <button className="btn btn-circle btn-outline btn-success"> <LiaPlusSquareSolid className="font-bold text-2xl" /> </button>
+                    <button onClick={handelIncrement} className="btn btn-circle btn-outline btn-success"> <LiaPlusSquareSolid className="font-bold text-2xl" /> </button>
+
                     <span className="font-bold text-xl">{quantity}</span>
-                    <button className="text-white btn btn-circle btn-outline btn-error "> <LiaMinusSquareSolid className="font-bold text-2xl" /> </button>
+
+                    <button onClick={handelDecrement} className="text-white btn btn-circle btn-outline btn-error " disabled={quantity === 1}> <LiaMinusSquareSolid className="font-bold text-2xl" /> </button>
                 </div>
 
-                <h1 className="text-3xl font-bold text-end my-5">Total: ${total}</h1>
+                <h1 className="text-3xl font-bold text-end my-5">Total: ${total * quantity}</h1>
 
                 <Link href={`/checkout/${_id}`} className="btn btn-primary w-full my-5" disabled={status}>Proceed Checkout</Link>
 

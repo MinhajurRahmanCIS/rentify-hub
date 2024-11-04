@@ -79,7 +79,6 @@ const handler = NextAuth({
         async signIn({ user, account, profile, email, credentials }) {
             if (account.provider === 'google' || 'github' || 'facebook') {
                 const { name, email, image } = user;
-                user.type = "";
                 try {
                     const db = await connectDB();
                     const userCollection = await db.collection('users');
