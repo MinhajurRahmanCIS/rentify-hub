@@ -129,7 +129,7 @@ const checkout = () => {
                 </div>
                 <div className="flex justify-between items-center px-5">
                      <p>Total</p>
-                     <p><strong>$ </strong>{parseFloat(0)}</p>
+                     <p><strong>$ </strong>00.00</p>
                 </div>
                 <div className="form-control mt-5">
                     <button className="btn btn-primary">Order</button>
