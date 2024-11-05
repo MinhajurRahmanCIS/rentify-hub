@@ -6,6 +6,7 @@ import React from 'react';
 export const generateMetadata = async ({ params }) => {
     const { id } = await params; //params need to be await
     const details = await getServicesDetails(id);
+    
     return {
         title: `${details?.title} Details`,
         description: details?.description,

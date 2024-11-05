@@ -1,29 +1,64 @@
 "use client"
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { LiaPlusSquareSolid, LiaMinusSquareSolid } from "react-icons/lia";
 
 
 const ServiceDetails = ({ details }) => {
+    const session = useSession();
     const [total, setTotal] = useState("00.00");
     const [quantity, setQuantity] = useState(1);
     const [status, setStatus] = useState(true);
+    const [months, setMonths] = useState();
     const { _id, title, img, description, brand, category, configuration, condition, facility, price } = details || {};
 
     const handelTotalPrice = (e) => {
         setTotal(e.target.value * parseFloat(price));
+        setMonths(e.target.value);
         setStatus(false);
     };
 
     const handelIncrement = () => {
         const currentQuantity = quantity + 1;
         setQuantity(currentQuantity);
-    }
+    };
 
     const handelDecrement = () => {
         const currentQuantity = quantity - 1;
         setQuantity(currentQuantity);
+    };
+
+
+    const handelCheckout = async (id) => {
+        const addToCart = {
+            serviceId: id,
+            months : parseInt(months),
+            quantity,
+            email: session?.data?.user?.email
+        };
+
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart/api/add-to-cart`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(addToCart)
+        })
+
+        const data = await res.json();
+
+        if (data.status === 500) {
+            toast.error("Already added in cart!")
+        };
+
+        if (data.status === 200) {
+            toast.success("Added in cart");
+            redirect(`/checkout/${id}`)
+        };
+
     }
 
     return (
@@ -90,7 +125,7 @@ const ServiceDetails = ({ details }) => {
 
                 <h1 className="text-3xl font-bold text-end my-5">Total: ${total * quantity}</h1>
 
-                <Link href={`/checkout/${_id}`} className="btn btn-primary w-full my-5" disabled={status}>Proceed Checkout</Link>
+                <button onClick={() => handelCheckout(_id)} className="btn btn-primary w-full my-5" disabled={status}>Proceed Checkout</button>
 
             </div>
 

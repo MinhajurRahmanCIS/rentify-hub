@@ -9,8 +9,8 @@ const Contact = () => {
             <div className="flex flex-col md:flex-row items-center justify-center gap-2 text-w">
                 <TbCalendarTime className="text-6xl" />
                 <div>
-                    <p>We are open Saturday-Wednesday</p>
-                    <h2 className="text-2xl font-bold">10:00 AM - 8:00 PM</h2>
+                    <p>Opening Saturday - Wednesday</p>
+                    <h2 className="text-2xl font-bold">10:00 AM - 12:00 PM</h2>
                 </div>
             </div>
             <div className="flex flex-col md:flex-row items-center justify-center gap-2 text-w">
@@ -23,7 +23,7 @@ const Contact = () => {
             <div className="flex flex-col md:flex-row items-center justify-center gap-2 text-w">
                 <GrMapLocation  className="text-6xl" />
                 <div>
-                    <p>Need a repair? our address</p>
+                    <p>Our Office</p>
                     <h2 className="text-2xl font-bold">Dhaka, Bangladesh</h2>
                 </div>
             </div>

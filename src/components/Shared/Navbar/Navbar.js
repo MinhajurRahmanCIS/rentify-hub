@@ -81,7 +81,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end gap-4">
-                    <AiOutlineShoppingCart className="text-2xl hover:text-primary" />
+                    <Link href="/cart"><AiOutlineShoppingCart className="text-2xl hover:text-primary" /></Link>
                     <AiOutlineSearch className="text-2xl hover:text-primary" />
 
                     {
