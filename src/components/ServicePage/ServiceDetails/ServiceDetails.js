@@ -56,7 +56,7 @@ const ServiceDetails = ({ details }) => {
 
         if (data.status === 200) {
             toast.success("Added in cart");
-            redirect(`/checkout/${id}`)
+            redirect(`/checkout/${id}/${months}/${quantity}`)
         };
 
     }
