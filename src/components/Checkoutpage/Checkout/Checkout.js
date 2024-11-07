@@ -42,7 +42,8 @@ const checkout = ({ id, details }) => {
                 <div className="col-span-2 w-full mb-10 md:mb-0">
                     <div className="card bg-base-100 w-full shrink-0 shadow-2xl border">
                         <div className="card-body w-full">
-                            <h1 className="my-2 text-2xl font-bold">Fill the form</h1>
+                            <h1 className="my-1 text-2xl font-bold">Fill the form</h1>
+                            <hr />
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                                 <div className="form-control w-full">
                                     <label className="label">
@@ -51,7 +52,8 @@ const checkout = ({ id, details }) => {
                                     <input
                                         type="text"
                                         name="name"
-                                        placeholder="Enter Your Full Name"
+                                        defaultValue={session?.data?.user?.name }
+                                        disabled
                                         className="input input-bordered w-full"
                                         required
                                     />
@@ -64,8 +66,9 @@ const checkout = ({ id, details }) => {
                                     <input
                                         type="email"
                                         name="email"
-                                        placeholder="Enter Your Email"
                                         className="input input-bordered w-full"
+                                        defaultValue={session?.data?.user?.email }
+                                        disabled
                                         required
                                     />
                                 </div>
@@ -85,6 +88,19 @@ const checkout = ({ id, details }) => {
 
                                 <div className="form-control">
                                     <label className="label">
+                                        <span className="label-text">Occupation </span>
+                                    </label>
+                                    <input
+                                        type="number"
+                                        name="occupation"
+                                        placeholder="Enter Your Occupation "
+                                        className="input input-bordered w-full"
+                                        required
+                                    />
+                                </div>
+
+                                <div className="form-control">
+                                    <label className="label">
                                         <span className="label-text">NID Number</span>
                                     </label>
                                     <input
@@ -95,6 +111,22 @@ const checkout = ({ id, details }) => {
                                         required
                                     />
                                 </div>
+                                
+                               { 
+                               details?.category === "Automobile" &&
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Driving License Number</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="license"
+                                        placeholder="Enter Your Driving License Number"
+                                        className="input input-bordered w-full"
+                                        required
+                                    />
+                                </div>
+                                }
 
                                 <div className="form-control">
                                     <label className="label">
@@ -126,6 +158,7 @@ const checkout = ({ id, details }) => {
                                         ))}
                                     </select>
                                 </div>
+
                             </div>
 
                             <div className="form-control">
@@ -185,12 +218,12 @@ const checkout = ({ id, details }) => {
                         <p><strong>$ </strong>{parseFloat(total).toFixed(2)}</p>
                     </div>
 
-                    <p className="text-center font-bold text-error mt-4">
+                    <p className="text-center font-bold text-error my-5">
                         Please make a payment of <span className="text-black font-bold bg-white px-1">$ {parseFloat(total).toFixed(2)}</span> BDT through bKash to this number: <span className="text-black font-bold bg-white px-1 ">(+880)012345678901</span>
                     </p>
 
 
-                    <div className="form-control mt-2">
+                    <div className="form-control my-5">
                         <input
                             type="text"
                             name="transactionID"
@@ -200,7 +233,7 @@ const checkout = ({ id, details }) => {
                         />
                     </div>
 
-                    <div className="form-control">
+                    <div className="form-control my-5">
                         <label className="label flex items-center gap-2">
                             <input onClick={handelTerms} type="checkbox" className="checkbox checkbox-success" />
                             <span className="label-text ">
@@ -208,7 +241,9 @@ const checkout = ({ id, details }) => {
                                 </span>
                         </label>
                     </div>
-                    <span className="text-error px-2 font-bold"> Note: <span className="font-semibold">No Refund Policy!</span></span>
+
+                    <span className="text-error px-2 font-bold my-5"> Note: <span className="font-semibold">No Refund Policy!</span></span>
+
                     <div className="form-control mt-3">
                         <button type="submit" className="btn btn-primary" disabled={terms}>Order</button>
                     </div>
