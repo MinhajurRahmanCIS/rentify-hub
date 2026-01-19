@@ -1,11 +1,26 @@
+import { connectDB } from "@/lib/connectDB";
+
 export const getServices = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}services/api/get-all`);
-    const services = res.json();
-    return services;
+    try {
+        const db = await connectDB();
+        const servicesCollection = db.collection('services');
+        const services = await servicesCollection.find().toArray();
+        // Serialize to ensure it matches the previous JSON response format and avoids Client Component serialization issues
+        return JSON.parse(JSON.stringify(services));
+    } catch (error) {
+        console.error("Error fetching services:", error);
+        return [];
+    }
 };
 
 export const getServicesDetails = async (id) => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}services/api/${id}`);
-    const services = res.json();
-    return services;
+    try {
+        const db = await connectDB();
+        const servicesCollection = db.collection('services');
+        const service = await servicesCollection.findOne({ _id: id });
+        return JSON.parse(JSON.stringify(service));
+    } catch (error) {
+        console.error("Error fetching service details:", error);
+        return null;
+    }
 };
