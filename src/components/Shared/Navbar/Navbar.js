@@ -22,22 +22,22 @@ const Navbar = () => {
             title: "Home",
             path: "/"
         },
-        {
-            title: "About",
-            path: "/about"
-        },
+        // {
+        //     title: "About",
+        //     path: "/about"
+        // },
         {
             title: "Services",
             path: "/services"
         },
-        {
-            title: "Blog",
-            path: "/blog"
-        },
-        {
-            title: "Contact",
-            path: "/contact"
-        },
+        // {
+        //     title: "Blog",
+        //     path: "/blog"
+        // },
+        // {
+        //     title: "Contact",
+        //     path: "/contact"
+        // },
     ];
 
     console.log(pathname)
