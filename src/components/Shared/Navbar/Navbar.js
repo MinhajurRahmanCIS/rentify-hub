@@ -2,12 +2,15 @@
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { AiOutlineSearch, AiOutlineShoppingCart } from "react-icons/ai";
 
 const Navbar = () => {
     const session = useSession();
+    const pathname = usePathname();
+    const router = useRouter();
     console.log(session)
     const handelLogout = () => {
         signOut();
@@ -35,7 +38,9 @@ const Navbar = () => {
             title: "Contact",
             path: "/contact"
         },
-    ]
+    ];
+
+    console.log(pathname)
     return (
         <div className="bg-base-200">
             <div className="navbar container mx-auto">
@@ -74,7 +79,7 @@ const Navbar = () => {
                     <ul className="menu menu-horizontal px-1">
                         {
                             menuItems?.map(menu =>
-                                <li key={menu.path} ><Link className="font-semibold hover:text-primary" href={menu.path}>{menu.title}</Link></li>
+                                <li key={menu.path} ><Link className={`font-semibold hover:text-primary ${pathname === menu.path && "text-primary font-bold"}`} href={menu.path}>{menu.title}</Link></li>
 
                             )
                         }
